@@ -1,19 +1,40 @@
 package com.example.android.docavailability.Model;
 
 import android.widget.Switch;
+import android.widget.ToggleButton;
 
 public class HospitalDetailModel {
     private String doctor_image;
     private String Doctor_Name;
     private String Speciality_doctor;
     private String id;
+    private Boolean tb;
 
-    public HospitalDetailModel(String doctor_image, String doctor_Name, String speciality_doctor, String id, int switch_availability) {
+    public HospitalDetailModel(String doctor_image, String doctor_Name, String speciality_doctor, String id, Boolean tb) {
         this.doctor_image = doctor_image;
-        Doctor_Name = doctor_Name;
-        Speciality_doctor = speciality_doctor;
+        this.Doctor_Name = doctor_Name;
+        this.Speciality_doctor = speciality_doctor;
         this.id = id;
-        this.switch_availability = switch_availability;
+        this.tb = tb;
+    }
+
+    public HospitalDetailModel(String doctor_Name, String speciality_doctor, String id, Boolean tb) {
+
+        this.Doctor_Name = doctor_Name;
+        this.Speciality_doctor = speciality_doctor;
+        this.id = id;
+        this.tb = tb;
+    }
+
+    public Boolean getTb() {
+        return tb;
+    }
+
+    public void setTb(Boolean tb) {
+        this.tb = tb;
+    }
+
+    public HospitalDetailModel() {
     }
 
     public String getId() {
@@ -23,10 +44,6 @@ public class HospitalDetailModel {
     public void setId(String id) {
         this.id = id;
     }
-
-    private int switch_availability;
-
-    public HospitalDetailModel() {}
 
 
     public HospitalDetailModel(String doctor_Name, String speciality_doctor,String id) {
@@ -59,11 +76,4 @@ public class HospitalDetailModel {
         Speciality_doctor = speciality_doctor;
     }
 
-    public int getSwitch_availability() {
-        return switch_availability;
-    }
-
-    public void setSwitch_availability(int switch_availability) {
-        this.switch_availability = switch_availability;
-    }
 }

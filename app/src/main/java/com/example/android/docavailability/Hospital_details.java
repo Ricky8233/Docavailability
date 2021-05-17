@@ -11,6 +11,7 @@ import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.android.docavailability.Adapter.HospitalDetailAdapter;
 import com.example.android.docavailability.Model.HospitalDetailModel;
@@ -32,12 +33,16 @@ public class Hospital_details extends AppCompatActivity {
     FirebaseAuth fauth;
     HospitalDetailAdapter adapter;
     TextView tv;
+    ToggleButton tb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hospital_details);
         add=findViewById(R.id.button_add_doc);
+
+        tb=findViewById(R.id.TB);
         rv=findViewById(R.id.RV);
         rv.setLayoutManager(new LinearLayoutManager(this));
         doctorlist=new ArrayList<>();
@@ -48,12 +53,7 @@ public class Hospital_details extends AppCompatActivity {
         adapter = new HospitalDetailAdapter(doctorlist);
         rv.setAdapter(adapter);
 
-        dbroot.collection("USERS").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                tv.setText(documentSnapshot.getString("name"));
-            }
-        });
+        dbroot.collection("USERS").document(id).get().addOnSuccessListener(documentSnapshot -> tv.setText(documentSnapshot.getString("name")));
 
         dbroot.collection("USERS").document(id).collection("Doctor_Details").get().addOnSuccessListener(queryDocumentSnapshots -> {
             List<DocumentSnapshot> list=queryDocumentSnapshots.getDocuments();
@@ -62,17 +62,16 @@ public class Hospital_details extends AppCompatActivity {
                 String name = documentSnapshot.getString("name");
                 String spec = documentSnapshot.getString("spec");
                 String id1 = documentSnapshot.getString("id");
-                doctorlist.add(new HospitalDetailModel(name,spec,id1));
+                Boolean toggle = documentSnapshot.getBoolean("Available");
+                doctorlist.add(new HospitalDetailModel(name,spec,id1,toggle));
             }
             adapter.notifyDataSetChanged();
         });
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(Hospital_details.this,Doctor_details.class);
-                startActivity(i);
-                finish();
-            }
+
+        add.setOnClickListener(v -> {
+            Intent i=new Intent(Hospital_details.this,Doctor_details.class);
+            startActivity(i);
+            finish();
         });
     }
 }

@@ -15,13 +15,6 @@ public class Doctors
         this.members = members;
     }
 
-    public Doctors(String doctor_photo, String doctor_name, String doctor_id, String doctor_speciality,List<String> members) {
-        this.doctor_photo = doctor_photo;
-        this.doctor_name = doctor_name;
-        this.doctor_id = doctor_id;
-        this.doctor_speciality = doctor_speciality;
-        this.members=members;
-    }
     public Doctors()
     {
 

@@ -11,9 +11,10 @@
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
     android:orientation="vertical">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="220dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -57,23 +58,34 @@
                 android:drawablePadding="2dp"
                 android:hint="Speciality " />
 
-            <Switch
-                android:id="@+id/switch_availability"
+            <TextView
+                android:id="@+id/F_id"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/Speciality_doctor"
-                android:layout_alignBottom="@+id/doctor_image"
+                android:layout_height="31dp"
+                android:layout_alignBottom="@+id/Speciality_doctor"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginStart="195dp"
-                android:layout_marginLeft="195dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="22dp"
-                android:layout_marginRight="22dp"
-                android:layout_marginBottom="2dp"
-                android:layout_toEndOf="@+id/doctor_image"
-                android:layout_toRightOf="@+id/doctor_image"
-                android:text="Avilabilty" />
+                android:layout_marginEnd="182dp"
+                android:layout_marginRight="182dp"
+                android:layout_marginBottom="-41dp"
+                android:text="Doctor_id" />
+
+            <ToggleButton
+                android:id="@+id/TB"
+                android:layout_width="64dp"
+                android:layout_height="47dp"
+                android:layout_below="@+id/Dn"
+                android:layout_alignStart="@+id/Speciality_doctor"
+                android:layout_alignLeft="@+id/Speciality_doctor"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="167dp"
+                android:layout_marginLeft="167dp"
+                android:layout_marginTop="39dp"
+                android:layout_marginEnd="41dp"
+                android:layout_marginRight="41dp"
+                android:text="ToggleButton" />
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

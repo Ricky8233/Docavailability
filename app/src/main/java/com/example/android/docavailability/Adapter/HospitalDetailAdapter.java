@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.ToggleButton;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,7 +40,8 @@ public class HospitalDetailAdapter extends RecyclerView.Adapter<HospitalDetailAd
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
         holder.t1.setText(datalist.get(position).getDoctor_Name());
         holder.t2.setText(datalist.get(position).getSpeciality_doctor());
-        //holder.s.setChecked(datalist.get(position).getSwitch_availability() == 1);
+        holder.D_id.setText(datalist.get(position).getId());
+        holder.tb.setChecked(datalist.get(position).getTb());
     }
     @Override
     public int getItemCount() {
@@ -46,12 +49,15 @@ public class HospitalDetailAdapter extends RecyclerView.Adapter<HospitalDetailAd
     }
 
     static class myViewHolder extends RecyclerView.ViewHolder{
-        TextView t1,t2;
+        TextView t1,t2,D_id;
+        ToggleButton tb;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             //s=itemView.findViewById(R.id.switch_availability);
             t1 = itemView.findViewById(R.id.Dn);
             t2 = itemView.findViewById(R.id.Speciality_doctor);
+            D_id=itemView.findViewById(R.id.F_id);
+            tb=itemView.findViewById(R.id.TB);
 
         }
     }

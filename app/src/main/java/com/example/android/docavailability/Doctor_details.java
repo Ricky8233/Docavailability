@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,15 +42,11 @@ public class Doctor_details extends AppCompatActivity {
     ImageView doctorimage;
     EditText doctor_name , Doctor_id , Doctor_speciality;
     Button proceed;
-
-    private Uri imageuri;
-    private Bitmap bmap;
     FirebaseFirestore dbroot;
-    private DatabaseReference mDatabase;
-    DatabaseReference databaseReference;
-    private FirebaseAuth mAuth;
-    Doctors doctors;
+    FirebaseAuth mAuth;
     ImageView image;
+    ToggleButton tb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,42 +58,47 @@ public class Doctor_details extends AppCompatActivity {
         Doctor_speciality=findViewById(R.id.Doctor_speciality);
         proceed = findViewById(R.id.proceed_doctor_details);
         dbroot=FirebaseFirestore.getInstance();
-        String id1 = mAuth.getCurrentUser().getUid();
+        tb=findViewById(R.id.toggleButton);
         image=findViewById(R.id.doctor_image);
-        proceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                String id = Doctor_id.getText().toString();
-                String name = doctor_name.getText().toString();
-                String spec = Doctor_speciality.getText().toString();
-                if (TextUtils.isEmpty(name) && TextUtils.isEmpty(id) && TextUtils.isEmpty(spec)) {
-                    Toast.makeText(Doctor_details.this, "Please add all details. ", Toast.LENGTH_SHORT).show();
-                }
-                else
-                    {
-                        insertdata();
-                        Intent i = new Intent(Doctor_details.this,Hospital_details.class);
-                        startActivity(i);
-                        finish();
-                }
+        proceed.setOnClickListener(v -> {
+            String id = Doctor_id.getText().toString();
+            String name = doctor_name.getText().toString();
+            String spec = Doctor_speciality.getText().toString();
+            if (TextUtils.isEmpty(name) && TextUtils.isEmpty(id) && TextUtils.isEmpty(spec)) {
+                Toast.makeText(Doctor_details.this, "Please add all details. ", Toast.LENGTH_SHORT).show();
+            }
+            else
+                {
+                    insertdata();
+                    Intent i = new Intent(Doctor_details.this,Hospital_details.class);
+                    startActivity(i);
+                    finish();
             }
         });
+        Intent i = new Intent(Doctor_details.this,Hospital_details.class);
+        startActivity(i);
+        finish();
+
     }
 
     private void insertdata() {
-        Map<String,String> doctors=new HashMap<>();
+        Map<String,Object> doctors=new HashMap<>();
 
         doctors.put("name", doctor_name.getText().toString());
         doctors.put("id", Doctor_id.getText().toString());
         doctors.put("spec", Doctor_speciality.getText().toString());
+        if(tb.getText().toString().equals("ON"))
+        {
+            doctors.put("Available",true);
+        }
+        else
+        {
+            doctors.put("Available",false);
+        }
+
         String id=mAuth.getUid();
-        dbroot.collection("USERS").document(id).collection("Doctor_Details").add(doctors).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
-                Toast.makeText(Doctor_details.this, "Successfully added. ", Toast.LENGTH_SHORT).show();
-            }
-        });
+        assert id != null;
+        dbroot.collection("USERS").document(id).collection("Doctor_Details").add(doctors).addOnCompleteListener(task -> Toast.makeText(Doctor_details.this, "Successfully added. ", Toast.LENGTH_SHORT).show());
 
     }
 
