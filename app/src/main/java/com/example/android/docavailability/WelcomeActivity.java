@@ -48,8 +48,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
                     if (currentUser != null ) {
 
-                        Intent MainActivity = new Intent(WelcomeActivity.this, Hospital_details.class);
-                        startActivity(MainActivity);
+                        Intent i = new Intent(WelcomeActivity.this, Hospital_details.class);
+                        startActivity(i);
                         WelcomeActivity.this.finish();
 
 

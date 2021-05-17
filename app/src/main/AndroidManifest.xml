@@ -11,17 +11,17 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Doctor_details"></activity>
         <activity android:name=".Hospital_details" />
-        <activity android:name=".WelcomeActivity" />
-        <activity android:name=".ForgotPasswordActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".WelcomeActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".SignInActivity" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

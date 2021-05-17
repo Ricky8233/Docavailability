@@ -76,7 +76,7 @@ public class SignInActivity extends AppCompatActivity {
                                             Intent HomeActivity = new Intent(SignInActivity.this, Hospital_details.class);
                                             setResult(RESULT_OK, null);
                                             startActivity(HomeActivity);
-                                            SignInActivity.this.finish();
+                                            finish();
 
                                         }
 

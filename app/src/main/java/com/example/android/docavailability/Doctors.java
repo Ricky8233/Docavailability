@@ -1,5 +1,7 @@
 package com.example.android.docavailability;
 
+import android.graphics.Bitmap;
+
 import java.util.List;
 
 public class Doctors

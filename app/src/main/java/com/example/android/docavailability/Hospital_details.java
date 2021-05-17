@@ -52,7 +52,6 @@ public class Hospital_details extends AppCompatActivity {
         String id=fauth.getUid();
         adapter = new HospitalDetailAdapter(doctorlist);
         rv.setAdapter(adapter);
-
         dbroot.collection("USERS").document(id).get().addOnSuccessListener(documentSnapshot -> tv.setText(documentSnapshot.getString("name")));
 
         dbroot.collection("USERS").document(id).collection("Doctor_Details").get().addOnSuccessListener(queryDocumentSnapshots -> {
@@ -67,11 +66,13 @@ public class Hospital_details extends AppCompatActivity {
             }
             adapter.notifyDataSetChanged();
         });
-
-        add.setOnClickListener(v -> {
-            Intent i=new Intent(Hospital_details.this,Doctor_details.class);
-            startActivity(i);
-            finish();
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(Hospital_details.this,Doctor_details.class);
+                startActivity(i);
+                finish();
+            }
         });
     }
 }
