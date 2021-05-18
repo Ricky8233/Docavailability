@@ -10,7 +10,7 @@ public class HospitalDetailModel {
     private String id;
     private Boolean tb;
 
-    public HospitalDetailModel(String doctor_image, String doctor_Name, String speciality_doctor, String id, Boolean tb) {
+    public HospitalDetailModel( String doctor_Name, String id,String speciality_doctor,String doctor_image, Boolean tb) {
         this.doctor_image = doctor_image;
         this.Doctor_Name = doctor_Name;
         this.Speciality_doctor = speciality_doctor;
@@ -45,13 +45,6 @@ public class HospitalDetailModel {
         this.id = id;
     }
 
-
-    public HospitalDetailModel(String doctor_Name, String speciality_doctor,String id) {
-        this.Doctor_Name = doctor_Name;
-        this.Speciality_doctor = speciality_doctor;
-        this.id=id;
-
-    }
     public String getDoctor_image() {
         return doctor_image;
     }
