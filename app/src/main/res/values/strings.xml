@@ -14,4 +14,5 @@
     <string name="reset_password">Reset Password</string>
     <string name="user_domain_com">user@domain.com</string>
     <string name="check_availability">check availability</string>
+    <string name="Proceed">proceed</string>
 </resources>

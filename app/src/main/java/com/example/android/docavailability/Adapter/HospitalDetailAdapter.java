@@ -2,16 +2,22 @@ package com.example.android.docavailability.Adapter;
 
 
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android.docavailability.Doctor_details;
 import com.example.android.docavailability.Model.HospitalDetailModel;
 import com.example.android.docavailability.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -53,12 +59,11 @@ public class HospitalDetailAdapter extends RecyclerView.Adapter<HospitalDetailAd
         ToggleButton tb;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
-            //s=itemView.findViewById(R.id.switch_availability);
             t1 = itemView.findViewById(R.id.Dn);
             t2 = itemView.findViewById(R.id.Speciality_doctor);
             D_id=itemView.findViewById(R.id.F_id);
             tb=itemView.findViewById(R.id.TB);
 
         }
-    }
+}
 }

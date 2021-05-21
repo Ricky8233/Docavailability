@@ -1,31 +1,29 @@
 package com.example.android.docavailability;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.google.android.gms.tasks.OnCompleteListener;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,9 +40,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import id.zelory.compressor.Compressor;
 
 
@@ -58,9 +53,7 @@ public class Doctor_details extends AppCompatActivity {
     private Uri imageUri;
     StorageReference storageReference;
     private Bitmap compressor;
-
     String user_id;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,27 +68,25 @@ public class Doctor_details extends AppCompatActivity {
         doctor_image = findViewById(R.id.my_avatar);
         storageReference = FirebaseStorage.getInstance().getReference();
         user_id = mAuth.getCurrentUser().getUid();
-        boolean result = Utility.checkPermission(Doctor_details.this);
         doctor_image.setOnClickListener(v -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (result) {
-                    Toast.makeText(Doctor_details.this, "permission denied ", Toast.LENGTH_SHORT).show();
-                    ActivityCompat.requestPermissions(Doctor_details.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            boolean result = Utility.checkPermission(Doctor_details.this);
+            if (result) {
+                Toast.makeText(Doctor_details.this, "permission denied ", Toast.LENGTH_SHORT).show();
+                ActivityCompat.requestPermissions(Doctor_details.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
-                } else {
-                    ChoseImage();
-                }
             } else {
                 ChoseImage();
             }
         });
-        proceed.setOnClickListener(v -> {
+        proceed.setOnClickListener(v ->
+        {
             String id = Doctor_id.getText().toString();
             String name = doctor_name.getText().toString();
             String spec = Doctor_speciality.getText().toString();
-            if (TextUtils.isEmpty(name) && TextUtils.isEmpty(id) && TextUtils.isEmpty(spec)) {
+            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(id) || TextUtils.isEmpty(spec) || doctor_image.getDrawable() == null) {
                 Toast.makeText(Doctor_details.this, "Please add all details. ", Toast.LENGTH_SHORT).show();
             } else {
+                showToast();
                 File file = new File(imageUri.getPath());
                 try {
                     compressor = new Compressor(Doctor_details.this)
@@ -106,55 +97,32 @@ public class Doctor_details extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 compressor.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
                 byte[] thumb = byteArrayOutputStream.toByteArray();
+
                 UploadTask image_path = storageReference.child("USERS").child(user_id + ".jpg").putBytes(thumb);
 
                 image_path.addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         storeDoctorData(task);
                     } else {
-                        Toast.makeText(Doctor_details.this,"..toast1" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(Doctor_details.this, "Please Try again later", Toast.LENGTH_LONG).show();
                     }
                 });
 
-                Intent i = new Intent(Doctor_details.this, Hospital_details.class);
-                startActivity(i);
-                finish();
             }
+
         });
     }
-
-  /*  private void insertdata() {
-
-
-        Map<String, Object> doctors = new HashMap<>();
-
-        doctors.put("name", doctor_name.getText().toString());
-        doctors.put("id", Doctor_id.getText().toString());
-        doctors.put("spec", Doctor_speciality.getText().toString());
-        if (tb.getText().toString().equals("ON")) {
-            doctors.put("Available", true);
-        } else {
-            doctors.put("Available", false);
-        }
-
-        String id = mAuth.getUid();
-        assert id != null;
-        dbroot.collection("USERS").document(id).collection("Doctor_Details").add(doctors).addOnCompleteListener(task -> Toast.makeText(Doctor_details.this, "Successfully added. ", Toast.LENGTH_SHORT).show());
-    }*/
 
     private void storeDoctorData(Task<UploadTask.TaskSnapshot> taskSnapshotTask) {
         Uri download_uri;
         String down_uri;
         Map<String, Object> doctors = new HashMap<>();
-
         doctors.put("name", doctor_name.getText().toString());
         doctors.put("id", Doctor_id.getText().toString());
         doctors.put("spec", Doctor_speciality.getText().toString());
-
         if (taskSnapshotTask != null) {
             down_uri = Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(taskSnapshotTask.getResult()).getMetadata()).getReference()).getDownloadUrl().toString();
             doctors.put("image", down_uri);
@@ -168,10 +136,10 @@ public class Doctor_details extends AppCompatActivity {
         } else {
             doctors.put("Available", false);
         }
-
         dbroot.collection("USERS").document(user_id).collection("Doctor_Details").add(doctors).addOnCompleteListener(task -> Toast.makeText(Doctor_details.this, "Successfully added. ", Toast.LENGTH_SHORT).show());
-
-
+        Intent i = new Intent(Doctor_details.this, Hospital_details.class);
+        startActivity(i);
+        finish();
     }
 
     private void ChoseImage() {
@@ -195,6 +163,25 @@ public class Doctor_details extends AppCompatActivity {
 
         }
 
+    }
+
+    private Toast mToastToShow;
+
+    public void showToast() {
+        int toastDurationInMilliSeconds = 4000;
+        mToastToShow = Toast.makeText(this, "Pleas Wait while adding data..", Toast.LENGTH_LONG);
+        CountDownTimer toastCountDown;
+        toastCountDown = new CountDownTimer(toastDurationInMilliSeconds, 1000 /*Tick duration*/) {
+            public void onTick(long millisUntilFinished) {
+                mToastToShow.show();
+            }
+
+            public void onFinish() {
+                mToastToShow.cancel();
+            }
+        };
+        mToastToShow.show();
+        toastCountDown.start();
     }
 }
 
