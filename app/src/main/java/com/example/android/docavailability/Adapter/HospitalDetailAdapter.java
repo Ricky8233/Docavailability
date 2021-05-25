@@ -65,5 +65,5 @@ public class HospitalDetailAdapter extends RecyclerView.Adapter<HospitalDetailAd
             tb=itemView.findViewById(R.id.TB);
 
         }
-}
+    }
 }

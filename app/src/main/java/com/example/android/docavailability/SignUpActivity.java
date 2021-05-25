@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,7 +24,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +40,8 @@ public class SignUpActivity extends AppCompatActivity {
     Button signUpButton;
     FirebaseAuth fauth;
     FirebaseFirestore fstore;
+    StorageReference storageReference;
+    private Bitmap compressor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +81,12 @@ public class SignUpActivity extends AppCompatActivity {
                     map.put("name",name);
                     map.put("pass",pass);
                     map.put("email",email);
+                    map.put("uri","");
                     dr.set(map).addOnSuccessListener(aVoid -> Toast.makeText(SignUpActivity.this, "Done", Toast.LENGTH_SHORT).show());
-
+                    byte[] thumb = new byte[0];
+                    fauth = FirebaseAuth.getInstance();
+                    storageReference= FirebaseStorage.getInstance().getReference();
+                    UploadTask image_path = storageReference.child("Hospital").child(fauth.getUid()+ ".jpg").putBytes(thumb);
                     startActivity(new Intent(getApplicationContext(),Hospital_details.class));
                     finish();
                 }

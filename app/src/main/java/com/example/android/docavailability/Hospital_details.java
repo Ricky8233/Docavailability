@@ -130,8 +130,9 @@ public class Hospital_details extends AppCompatActivity {
                             finish();
                         }
                         else
-                        {
-
+                            {
+                                startActivity(new Intent(Hospital_details.this, Hospitaldetailsedit.class));
+                                finish();
                         }
 
                         return true;
