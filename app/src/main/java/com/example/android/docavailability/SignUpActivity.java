@@ -86,7 +86,7 @@ public class SignUpActivity extends AppCompatActivity {
                     byte[] thumb = new byte[0];
                     fauth = FirebaseAuth.getInstance();
                     storageReference= FirebaseStorage.getInstance().getReference();
-                    UploadTask image_path = storageReference.child("Hospital").child(fauth.getUid()+ ".jpg").putBytes(thumb);
+                    UploadTask image_path = storageReference.child("hospitals").child(fauth.getUid()+ ".jpg").putBytes(thumb);
                     startActivity(new Intent(getApplicationContext(),Hospital_details.class));
                     finish();
                 }

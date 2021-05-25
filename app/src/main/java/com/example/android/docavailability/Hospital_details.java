@@ -101,7 +101,7 @@ public class Hospital_details extends AppCompatActivity
                 String id1 = documentSnapshot.getString("id");
                 Boolean toggle = documentSnapshot.getBoolean("Available");
                 String image = documentSnapshot.getString("image");
-                doctorlist.add(new HospitalDetailModel(name, spec, id1, toggle));
+                doctorlist.add(new HospitalDetailModel(name, spec, id1, toggle,image));
             }
             adapter.notifyDataSetChanged();
         });
