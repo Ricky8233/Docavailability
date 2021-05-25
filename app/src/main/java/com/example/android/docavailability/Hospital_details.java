@@ -40,7 +40,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-public class Hospital_details extends AppCompatActivity {
+public class Hospital_details extends AppCompatActivity
+{
     RecyclerView rv;
     ArrayList<HospitalDetailModel> doctorlist;
     Button add;
