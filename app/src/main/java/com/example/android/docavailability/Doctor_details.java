@@ -50,6 +50,7 @@ public class Doctor_details extends AppCompatActivity {
     FirebaseAuth mAuth;
     private ImageView doctor_image;
     ToggleButton tb;
+    FirebaseFirestore firebaseFirestore;
     private Uri imageUri;
     StorageReference storageReference;
     private Bitmap compressor;
@@ -68,7 +69,8 @@ public class Doctor_details extends AppCompatActivity {
         doctor_image = findViewById(R.id.my_avatar);
         storageReference = FirebaseStorage.getInstance().getReference();
         user_id = mAuth.getCurrentUser().getUid();
-        doctor_image.setOnClickListener(v -> {
+        doctor_image.setOnClickListener(v ->
+        {
             boolean result = Utility.checkPermission(Doctor_details.this);
             if (result) {
                 Toast.makeText(Doctor_details.this, "permission denied ", Toast.LENGTH_SHORT).show();
@@ -101,7 +103,7 @@ public class Doctor_details extends AppCompatActivity {
                 compressor.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
                 byte[] thumb = byteArrayOutputStream.toByteArray();
 
-                UploadTask image_path = storageReference.child("USERS").child(user_id + ".jpg").putBytes(thumb);
+                UploadTask image_path = storageReference.child("USERS").child(user_id).child(doctor_name.getText().toString()+ ".jpg").putBytes(thumb);
 
                 image_path.addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
