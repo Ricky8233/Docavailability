@@ -12,50 +12,101 @@
         android:id="@+id/Fetched_Name"
         android:layout_width="match_parent"
         android:layout_height="151dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp">
 
         <ImageView
             android:id="@+id/hImage"
-            android:layout_width="wrap_content"
-            android:layout_height="138dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="30dp"
+            android:padding="0dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
+            android:scaleType="center"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="231dp"
-            android:layout_height="99dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="TextView"
-            android:textSize="36sp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="246dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/H_phone_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="20dp"
+                android:text="TextView"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/H_icu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="10dp"
+                android:text="TextView"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="25dp"
             android:layout_height="28dp"
-            android:layout_gravity="right|end"
-            android:layout_weight="1"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:foregroundGravity="right"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:src="@drawable/ic_baseline_menu_24" />
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RV"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="521dp" />
+        android:layout_height="0dp"
+        android:layout_weight="0.6">
 
-    <Button
-        android:id="@+id/button_add_doc"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="ADD" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RV"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/button_add_doc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end"
+            android:layout_marginStart="344dp"
+            android:layout_marginLeft="344dp"
+            android:layout_marginTop="507dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginRight="11dp"
+            android:layout_marginBottom="17dp"
+            android:foregroundGravity="right|bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+        <!--
+            android:src="@drawable/ic_baseline_person_add_24-->"
+
+
+    </RelativeLayout>
 
 </LinearLayout>
