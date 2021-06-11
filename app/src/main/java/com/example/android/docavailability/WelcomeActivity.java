@@ -22,7 +22,7 @@ public class WelcomeActivity extends AppCompatActivity {
     public FirebaseUser currentUser;
     Button signUpButton;
     Button signInButton;
-
+    Button check_availability;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +34,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         signUpButton = findViewById(R.id.welcomeSignUpButton);
         signInButton = findViewById(R.id.welcomeSignInButton);
-
-        signInButton.setVisibility(INVISIBLE);
-        signUpButton.setVisibility(INVISIBLE);
+        check_availability = findViewById(R.id.check_availability);
 
         if (mAuth.getCurrentUser() != null) {
             mAuth.getCurrentUser().reload().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -44,15 +42,13 @@ public class WelcomeActivity extends AppCompatActivity {
                 public void onSuccess(Void aVoid) {
 
                     currentUser = mAuth.getCurrentUser();
-
-
-                    if (currentUser != null ) {
-
+                    signInButton.setVisibility(INVISIBLE);
+                    signUpButton.setVisibility(INVISIBLE);
+                    if (currentUser != null )
+                    {
                         Intent i = new Intent(WelcomeActivity.this, Hospital_details.class);
                         startActivity(i);
                         WelcomeActivity.this.finish();
-
-
                     }
                 }
             });
@@ -61,26 +57,30 @@ public class WelcomeActivity extends AppCompatActivity {
 
             signInButton.setVisibility(VISIBLE);
             signUpButton.setVisibility(VISIBLE);
-            System.out.println("user not available");
         }
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent signUpIntent = new Intent(WelcomeActivity.this, SignUpActivity.class);
                 startActivity(signUpIntent);
+                finish();
             }
         });
 
-
+        check_availability.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(WelcomeActivity.this, Check_availability_home.class);
+                startActivity(i);
+                finish();
+            }
+        });
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 Intent signInIntent = new Intent(WelcomeActivity.this, SignInActivity.class);
-
                 startActivityForResult(signInIntent, REQUEST_EXIT);
-
+                finish();
 
             }
         });

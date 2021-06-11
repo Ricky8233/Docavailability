@@ -9,14 +9,16 @@ public class HospitalDetailModel {
     private String Speciality_doctor;
     private String id;
     private Boolean tb;
+    private String doctor_phone;
 
-    public HospitalDetailModel( String doctor_Name,String speciality_doctor ,String id,Boolean tb,String doctor_image) {
+    public HospitalDetailModel( String doctor_Name,String speciality_doctor ,String id,Boolean tb,String doctor_image,String doctor_phone) {
         this.doctor_image = doctor_image;
         this.Doctor_Name = doctor_Name;
         this.Speciality_doctor = speciality_doctor;
         this.id = id;
         this.tb = tb;
         this.doctor_image = doctor_image;
+        this.doctor_phone = doctor_phone;
     }
 
     public HospitalDetailModel(String doctor_Name, String speciality_doctor, String id, Boolean tb) {
@@ -36,6 +38,13 @@ public class HospitalDetailModel {
     }
 
     public HospitalDetailModel() {
+    }
+    public String getDoctor_phone() {
+        return doctor_phone;
+    }
+
+    public void setDoctor_phone(String doctor_phone) {
+        this.doctor_phone = doctor_phone;
     }
 
     public String getId() {

@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,6 +35,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -51,29 +53,43 @@ public class Hospitaldetailsedit extends AppCompatActivity {
     Button editbutton;
     FirebaseAuth fauth;
     Uri imageLocationPath;
-
+    EditText Icu_beds;
+    EditText phone_number;
     String name;
-    String hid,pass,email;
+    String pass,email;
+    String phone_n;
+    String icu_b;
+    String url,id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hospitaldetailsedit);
         Hospital_name = findViewById(R.id.edit_hospitalname);
+        Icu_beds = findViewById(R.id.icu_beds);
+        phone_number = findViewById(R.id.Hospital_Phone_number);
         dbroot = FirebaseFirestore.getInstance();
         editbutton = findViewById(R.id.edit_button);
         fauth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("hospitals");
         hospital_image = findViewById(R.id.hospital_image);
-        String id = fauth.getUid();
+        id= fauth.getUid();
         dbroot.collection("USERS").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                name = documentSnapshot.getString("name");
+                Hospital_name.setText(documentSnapshot.getString("name"));
                 email= documentSnapshot.getString("email");
                 pass=documentSnapshot.getString("pass");
+                Icu_beds.setText(documentSnapshot.getString("ICU_Beds "));
+                phone_number.setText(documentSnapshot.getString("PhoneNumber "));
+                icu_b = documentSnapshot.getString("ICU_Beds ");
+                phone_n = documentSnapshot.getString("PhoneNumber ");
+                url = documentSnapshot.getString("uri");
+                Glide.with(Hospitaldetailsedit.this).load(url).into(hospital_image);
             }
         });
         Hospital_name.setText(name);
+        Icu_beds.setText(icu_b);
+        phone_number.setText(phone_n);
         hospital_image.setOnClickListener(this::SelectImage);
         editbutton.setOnClickListener(new View.OnClickListener()
         {
@@ -118,7 +134,7 @@ public class Hospitaldetailsedit extends AppCompatActivity {
         {
             if(imageLocationPath!=null)
             {
-                String nameOfimage = Hospital_name.getText().toString()+"."+Extension(imageLocationPath);
+                String nameOfimage = Hospital_name.getText().toString() +  ".jpeg";
                 StorageReference image_ref=storageReference.child(nameOfimage);
                 UploadTask uploadTask=image_ref.putFile(imageLocationPath);
                 uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
@@ -138,36 +154,38 @@ public class Hospitaldetailsedit extends AppCompatActivity {
                         hashMap.put("pass",pass);
                         hashMap.put("email",email);
                         hashMap.put("name",Hospital_name.getText().toString());
+                        hashMap.put("PhoneNumber ",phone_number.getText().toString());
+                        hashMap.put("ICU_Beds " ,Icu_beds.getText().toString());
+                        hashMap.put("uid",id);
+                        dbroot.collection("USERS").document(fauth.getUid()).delete();
                         dbroot.collection("USERS").document(fauth.getUid()).set(hashMap);
                         Intent i = new Intent(Hospitaldetailsedit.this, Hospital_details.class);
                         startActivity(i);
-                        finish();
                     }
                     else if(!task.isSuccessful())
                     {
                         Toast.makeText(Hospitaldetailsedit.this,task.getException().toString(),Toast.LENGTH_LONG).show();
                     }
                 });
-
-
             }
             else
             {
-                Toast.makeText(this,"Please enter Valid Details",Toast.LENGTH_LONG).show();
+                Map<String,String> hashMap= new HashMap<>();
+                hashMap.put("uri",url);
+                hashMap.put("pass",pass);
+                hashMap.put("email",email);
+                hashMap.put("name",Hospital_name.getText().toString());
+                hashMap.put("PhoneNumber ",phone_number.getText().toString());
+                hashMap.put("ICU_Beds " ,Icu_beds.getText().toString());
+                hashMap.put("uid",id);
+                dbroot.collection("USERS").document(fauth.getUid()).delete();
+                dbroot.collection("USERS").document(fauth.getUid()).set(hashMap);
+                Intent i = new Intent(Hospitaldetailsedit.this, Hospital_details.class);
+                startActivity(i);
             }
 
         } catch (Exception e){
             Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();
         }
-    }
-    private String  Extension(Uri uri) {
-        try {
-            ContentResolver object = getContentResolver();
-            MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-            return mimeTypeMap.getExtensionFromMimeType(object.getType(uri));
-        } catch (Exception e){
-            Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();
-        }
-        return null;
     }
 }

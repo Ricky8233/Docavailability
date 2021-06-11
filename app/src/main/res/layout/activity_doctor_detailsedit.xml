@@ -9,17 +9,17 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/Hospital_details_edit"
+        android:id="@+id/Doctor_Details_edit"
         android:layout_width="match_parent"
         android:layout_height="92dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="Hospitals Details"
+        android:text="Doctor Details"
         android:textColor="#FFFCFC"
-        android:textSize="30sp" />
+        android:textSize="40sp" />
 
     <ImageView
-        android:id="@+id/hospital_image"
+        android:id="@+id/my_avatar_edit"
         android:layout_width="160dp"
         android:layout_height="154dp"
         android:layout_gravity="center_horizontal"
@@ -29,7 +29,7 @@
 
     <LinearLayout
         android:layout_width="400dp"
-        android:layout_height="350dp"
+        android:layout_height="440dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
@@ -37,21 +37,22 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/edit_hospitalname"
+            android:id="@+id/Doctor_id_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal|center_vertical"
             android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/rounded_stroke"
             android:ems="10"
             android:gravity="center"
-            android:hint="Hospital Name"
+            android:hint="Doctor_ID"
             android:inputType="textPersonName"
             android:padding="10dp"
             android:textColorHint="#74000000" />
 
         <EditText
-            android:id="@+id/Hospital_Phone_number"
+            android:id="@+id/Doctor_speciality_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal|center_vertical"
@@ -59,13 +60,26 @@
             android:background="@drawable/rounded_stroke"
             android:ems="10"
             android:gravity="center"
-            android:hint="Phone Number"
+            android:hint="Doctor Speciality"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textColorHint="#74000000" />
+        <EditText
+            android:id="@+id/DoctorphoneN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_stroke"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Doctor Phone Number"
             android:inputType="textPersonName"
             android:padding="10dp"
             android:textColorHint="#74000000" />
 
         <EditText
-            android:id="@+id/icu_beds"
+            android:id="@+id/Doctor_name_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal|center_vertical"
@@ -73,13 +87,48 @@
             android:background="@drawable/rounded_stroke"
             android:ems="10"
             android:gravity="center"
-            android:hint="Icu_beds"
+            android:hint="Doctor Name"
             android:inputType="textPersonName"
             android:padding="10dp"
             android:textColorHint="#74000000" />
+
+        <LinearLayout
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical"
+                android:text="Availability"
+                android:textColor="#000000"
+                android:textColorHint="#31FFFFFF"
+                android:textSize="18sp" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center|right"
+                android:layout_margin="5dp"
+                android:layout_marginTop="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/roundedbutton"
+                android:gravity="center"
+                android:hint="Available"
+                android:text="Availability"
+                android:textColor="#FDFDFD"
+                android:textOff="Not available"
+                android:textOn="Available" />
+
+        </LinearLayout>
 
         <Button
-            android:id="@+id/edit_button"
+            android:id="@+id/edit_doctor_details_"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

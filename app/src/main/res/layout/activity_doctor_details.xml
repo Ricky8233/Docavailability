@@ -29,7 +29,7 @@
 
     <LinearLayout
         android:layout_width="400dp"
-        android:layout_height="383dp"
+        android:layout_height="430dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
@@ -78,6 +78,20 @@
             android:inputType="textPersonName"
             android:padding="10dp"
             android:textColorHint="#74000000" />
+        <EditText
+            android:id="@+id/Doctor_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_stroke"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Doctor Phone number"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textColorHint="#74000000" />
 
         <LinearLayout
             android:layout_width="400dp"
@@ -96,7 +110,7 @@
                 android:textSize="18sp" />
 
             <ToggleButton
-                android:id="@+id/toggleButton"
+                android:id="@+id/toggleButton_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -110,17 +124,17 @@
                 android:text="Availability"
                 android:textColor="#FDFDFD"
                 android:textOff="Not available"
-                android:textOn="Available " />
+                android:textOn="Available" />
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/proceed_doctor_details"
+            android:id="@+id/edit_doctor_details_"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="bottom|center"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/roundedbutton"
             android:text="@string/Proceed"
             android:textColor="#FDFDFD" />
