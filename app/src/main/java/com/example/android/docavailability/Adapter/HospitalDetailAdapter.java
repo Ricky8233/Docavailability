@@ -96,7 +96,7 @@ public class HospitalDetailAdapter extends RecyclerView.Adapter<HospitalDetailAd
             imageButton = itemView.findViewById(R.id.imageButtoncardView);
             imageButton.setOnClickListener(this);
             tb=itemView.findViewById(R.id.txt_avail);
-            imageButton.setVisibility(View.INVISIBLE);
+
         }
 
         @Override
@@ -112,6 +112,8 @@ public class HospitalDetailAdapter extends RecyclerView.Adapter<HospitalDetailAd
                 popupMenu.setOnMenuItemClickListener(this);
                 popupMenu.show();
             }
+            else
+                imageButton.setVisibility(View.INVISIBLE);
 
 
         }

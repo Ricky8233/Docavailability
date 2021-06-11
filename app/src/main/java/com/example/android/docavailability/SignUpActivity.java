@@ -46,8 +46,6 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-
         fstore= FirebaseFirestore.getInstance();
         fauth = FirebaseAuth.getInstance();
         edittext_hospital_name = findViewById(R.id.Hospital_name);

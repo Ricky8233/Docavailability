@@ -27,11 +27,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-
-
         mAuth = FirebaseAuth.getInstance();
-
-
         signUpButton = findViewById(R.id.welcomeSignUpButton);
         signInButton = findViewById(R.id.welcomeSignInButton);
         check_availability = findViewById(R.id.check_availability);
@@ -63,7 +59,6 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent signUpIntent = new Intent(WelcomeActivity.this, SignUpActivity.class);
                 startActivity(signUpIntent);
-                finish();
             }
         });
 
@@ -72,15 +67,14 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(WelcomeActivity.this, Check_availability_home.class);
                 startActivity(i);
-                finish();
+
             }
         });
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent signInIntent = new Intent(WelcomeActivity.this, SignInActivity.class);
-                startActivityForResult(signInIntent, REQUEST_EXIT);
-                finish();
+                startActivity(signInIntent);
 
             }
         });
