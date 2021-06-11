@@ -17,7 +17,9 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.android.docavailability.Doctor_details;
+import com.example.android.docavailability.Hospital_details;
 import com.example.android.docavailability.Model.HospitalDetailModel;
 import com.example.android.docavailability.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -48,6 +50,8 @@ public class HospitalDetailAdapter extends RecyclerView.Adapter<HospitalDetailAd
         holder.t2.setText(datalist.get(position).getSpeciality_doctor());
         holder.D_id.setText(datalist.get(position).getId());
         holder.tb.setChecked(datalist.get(position).getTb());
+        Glide.with(holder.itemView.getContext()).load(datalist.get(position).getDoctor_image()).into(holder.img);
+
     }
     @Override
     public int getItemCount() {
@@ -57,13 +61,15 @@ public class HospitalDetailAdapter extends RecyclerView.Adapter<HospitalDetailAd
     static class myViewHolder extends RecyclerView.ViewHolder{
         TextView t1,t2,D_id;
         ToggleButton tb;
+        ImageView img;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             t1 = itemView.findViewById(R.id.Dn);
             t2 = itemView.findViewById(R.id.Speciality_doctor);
+            img = itemView.findViewById(R.id.doctor_image_fetched);
             D_id=itemView.findViewById(R.id.F_id);
             tb=itemView.findViewById(R.id.TB);
 
         }
-}
+    }
 }
